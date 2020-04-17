@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToastService} from '../../shared/Services/toast.service';
-import {AuthenticationServiceService} from '../../shared/Services/authentication-service.service';
+import {ToastService} from '../../../shared/Services/toast.service';
+import {AuthenticationServiceService} from '../../../shared/Services/authentication-service.service';
 
 
 
@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-      console.log(this.route.snapshot.queryParams.returnUrl)
       this.authService.login(this.loginForm.value.username, this.loginForm.value.password)
         .pipe(first())
         .subscribe(
@@ -79,7 +78,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/profile/change-password']);
             } else {
               this.toastService.success('Success', 'Success');
-              this.router.navigate(['dashboard']);
+              this.router.navigate(['/dashboard']);
               // this.router.navigate(['/profile/change-password']);
             }
           }
