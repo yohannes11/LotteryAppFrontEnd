@@ -94,15 +94,15 @@ export class DashboardComponent implements OnInit {
 
   registerUser() {
      this.modalService.show(AddComponent);
-    // this.modalService.onHide.subscribe(
-    //   result => {
-    //     const pageEvent: PageChangedEvent = {
-    //       itemsPerPage: this.itemsPerPage,
-    //       page: this.currentPage
-    //     };
-    //     this.listUser(pageEvent);
-    //   }
-    // );
+    this.modalService.onHide.subscribe(
+      result => {
+        const pageEvent: PageChangedEvent = {
+          itemsPerPage: this.itemsPerPage,
+          page: this.currentPage
+        };
+        this.listUser(pageEvent);
+      }
+    );
   }
 
   search() {
