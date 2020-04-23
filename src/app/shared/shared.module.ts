@@ -10,7 +10,6 @@ import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog
 
 // ngx bootstrap
 import {ModalModule, BsModalRef} from 'ngx-bootstrap/modal';
-import {ToastComponent} from './components/toast/toast.component';
 import {ToastrModule} from 'ngx-toastr';
 
 

@@ -19,7 +19,6 @@ import {ToastrModule} from 'ngx-toastr';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ModalModule, BsModalRef} from 'ngx-bootstrap/modal';
-import {ToastComponent} from './shared/components/toast/toast.component';
 import {ConfirmDialogComponent} from './shared/components/confirm-dialog/confirm-dialog.component';
 import {
   ModalComponent
@@ -49,11 +48,11 @@ import {
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    ToastComponent,
-    ModalComponent
+    ModalComponent,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+  providers: [BsModalRef,{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+
   bootstrap: [AppComponent],
   entryComponents: [ModalComponent, ConfirmDialogComponent],
 })
