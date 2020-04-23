@@ -8,6 +8,7 @@ import {ErrMassageService} from '../../../shared/Services/err-massage.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {ProfileService} from '../../../api/services/profile.service';
 import {PageChangedEvent} from 'ngx-bootstrap/pagination';
+import {AddComponent} from './add/add.component';
 
 
 @Component({
@@ -58,9 +59,6 @@ export class DashboardComponent implements OnInit {
       result => {
         this.users = result.userDatas;
         this.totalItems = result.countDto.count;
-        console.log('users log');
-        console.log(this.users);
-        console.log('end of log');
       }
     );
   }
@@ -93,21 +91,22 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  //
-  // registerUser() {
-  //   this.modalService.show(AddComponent);
-  //   this.modalService.onHide.subscribe(
-  //     result => {
-  //       const pageEvent: PageChangedEvent = {
-  //         itemsPerPage: this.itemsPerPage,
-  //         page: this.currentPage
-  //       };
-  //       this.listUser(pageEvent);
-  //     }
-  //   );
-  // }
+
+  registerUser() {
+    this.modalService.show(AddComponent);
+    this.modalService.onHide.subscribe(
+      result => {
+        const pageEvent: PageChangedEvent = {
+          itemsPerPage: this.itemsPerPage,
+          page: this.currentPage
+        };
+        this.listUser(pageEvent);
+      }
+    );
+  }
 
   search() {
+    console.log(this.searchForm)
     if (this.searchForm.valid) {
       this.userService.searchUser(this.searchForm.value).subscribe(
         result => {

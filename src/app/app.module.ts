@@ -18,11 +18,20 @@ import {SharedModule} from './shared/shared.module';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {ModalModule, BsModalRef} from 'ngx-bootstrap/modal';
+import {ToastComponent} from './shared/components/toast/toast.component';
+import {ConfirmDialogComponent} from './shared/components/confirm-dialog/confirm-dialog.component';
+import {
+  ModalComponent
+} from './shared/components/modal/modal.component';
 
 
 @NgModule({
+  exports: [
+    ToastrModule],
   imports: [
     BrowserAnimationsModule,
+    ToastrModule,
     SharedModule,
     FormsModule,
     HttpClientModule,
@@ -33,16 +42,21 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AppRoutingModule,
     BrowserModule,
     NgxPaginationModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+    ToastComponent,
+    ModalComponent
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalComponent, ConfirmDialogComponent],
 })
+
 export class AppModule {
 }
