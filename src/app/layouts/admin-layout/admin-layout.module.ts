@@ -17,6 +17,8 @@ import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from '../../feature-modules/dashboard/dashboard/dashboard.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {AddComponent} from '../../feature-modules/dashboard/dashboard/add/add.component';
+import {ProfileComponent} from '../../feature-modules/profile/profile/profile.component';
+import {ChangePasswordComponent} from '../../feature-modules/profile/change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -32,6 +34,8 @@ import {AddComponent} from '../../feature-modules/dashboard/dashboard/add/add.co
   declarations: [
     UserProfileComponent,
     AddComponent,
+    ProfileComponent,
+    ChangePasswordComponent,
     DashboardComponent,
     TablesComponent,
     IconsComponent,

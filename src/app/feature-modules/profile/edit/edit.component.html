@@ -1,0 +1,69 @@
+      <div class="container col-sm-5">
+        <div class=" align-items-center justify-content-center">
+          <form [formGroup]="editProfileForm" #editCheck="ngForm">
+            <div class="card container">
+              <div class="form-group">
+                <label for="firstName" translate="">First Name</label>
+                <input formControlName="firstName" [(ngModel)]="firstNameData" type="text" class="form-control pop-inp"
+                  id="firstName">
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched) || (editCheck.submitted)">
+                  <small *ngIf="editProfileForm.hasError('required',['firstName'])" style="color : red !important;"
+                    class="form-text text-muted">this
+                    field is required
+                  </small>
+                  <small *ngIf="editProfileForm.hasError('pattern',['firstName'])" style="color : red !important;"
+                    class="form-text text-muted">numeric input is invalid
+                  </small>
+                </div>
+              </div>
+              <div class="form-group ">
+                <label for="firstName" translate="">Last Name</label>
+                <input formControlName="lastName" [(ngModel)]="lastNameData" type="text" class="form-control pop-inp"
+                  id="lastName">
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched) || (editCheck.submitted)">
+                  <small *ngIf="editProfileForm.hasError('required',['lastName'])" style="color : red !important;"
+                    class="form-text text-muted">this
+                    field is required
+                  </small>
+                  <small *ngIf="editProfileForm.hasError('pattern',['lastName'])" style="color : red !important;"
+                    class="form-text text-muted">numeric input is invalid
+                  </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email" translate="">Email</label>
+                <input formControlName="email" [(ngModel)]="emailData" type="text" class="form-control pop-inp"
+                  id="email">
+                <div *ngFor="let validation of vMsg.email">
+                  <div class="text-danger" *ngIf="email.hasError(validation.type) && (email.dirty || email.touched)">
+                    <small>{{validation.message}}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="phone" translate="">Phone Number</label>
+                <input formControlName="phoneNumber" type="text" [(ngModel)]="phoneData" class="form-control pop-inp"
+                  id="phone">
+                <small>e.g. +251 9** ** ** **</small>
+                <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched) || (editCheck.submitted)">
+                  <small *ngIf="editProfileForm.hasError('required',['phoneNumber'])" style="color : red !important;"
+                    class="form-text text-muted">this
+                    field is required
+                  </small>
+                  <small *ngIf="editProfileForm.hasError('pattern',['phoneNumber'])" style="color : red !important;"
+                    class="form-text text-muted">Phone
+                    number is not valid yet
+                  </small>
+                </div>
+              </div>
+              <br>
+              <div class="form-group">
+                <button (click)="updateProfile()" class="btn btn-sm btn-outline-primary float-right"
+                  type="submit">Update</button> &nbsp; &nbsp;
+                <button class="btn btn-sm btn-outline-danger float-right" routerLink="/profile">Cancel</button> &nbsp;
+                &nbsp;
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
