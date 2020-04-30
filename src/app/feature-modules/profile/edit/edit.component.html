@@ -4,7 +4,7 @@
             <div class="card container">
               <div class="form-group">
                 <label for="firstName" translate="">First Name</label>
-                <input formControlName="firstName" [(ngModel)]="firstNameData" type="text" class="form-control pop-inp"
+                <input  formControlName="firstName" [(ngModel)]="firstNameData" type="text" class="form-control pop-inp"
                   id="firstName">
                 <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched) || (editCheck.submitted)">
                   <small *ngIf="editProfileForm.hasError('required',['firstName'])" style="color : red !important;"

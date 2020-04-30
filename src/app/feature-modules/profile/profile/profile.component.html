@@ -1,7 +1,8 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
   <div class="container-fluid">
     <!-- Brand -->
-    <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active" [routerLink]="['/dashboard']">Profile Management</a>
+    <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active"
+       [routerLink]="['/dashboard']">Profile Management</a>
     <!-- User -->
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item" ngbDropdown placement="bottom-right">
@@ -52,26 +53,36 @@
             <div class="col-8">
               <h3 class="mb-0">My Profile</h3>
             </div>
-            <div class="col-4 text-right">
-              <a href="#!" class="btn btn-sm btn-primary">Edit</a>
+            <div [hidden]="editing ? true : false" class="col-4 text-right">
+              <Button (click)="edit()" class="btn btn-sm btn-primary">Edit</Button>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="editProfileForm" #editCheck="ngForm">
             <h6 class="heading-small text-muted mb-4">User information</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-username">Username</label>
-                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="{{userData.username}}">
+                    <label class="form-control-label" for="username">Username</label>
+                    <input [readonly]="true" type="text" id="input-username"
+                           class="form-control form-control-alternative" placeholder="Username"
+                           value="{{userData.username}}" id="username">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-email">Email</label>
-                    <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="{{userData.email}}">
+                    <label class="form-control-label" for="email">Email</label>
+                    <input formControlName="email" [(ngModel)]="emailData" [readonly]="editing ? false: true"
+                           type="email" id="email"
+                           class="form-control form-control-alternative" placeholder="email" [id]="email">
+                    <div *ngFor="let validation of vMsg.email">
+                      <div class="text-danger"
+                           *ngIf="email.hasError(validation.type) && (email.dirty || email.touched)">
+                        <small>{{validation.message}}</small>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -79,13 +90,36 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">First name</label>
-                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="{{userData.firstName}}">
+                    <input formControlName="firstName" [(ngModel)]="firstNameData" [readonly]="editing ? false: true"
+                           type="text" id="input-first-name"
+                           class="form-control form-control-alternative" placeholder="First name"
+                           value="{{userData.firstName}}">
+                    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched) || (editCheck.submitted)">
+                      <small *ngIf="editProfileForm.hasError('required',['firstName'])" style="color : red !important;"
+                             class="form-text text-muted">this
+                        field is required
+                      </small>
+                      <small *ngIf="editProfileForm.hasError('pattern',['firstName'])" style="color : red !important;"
+                             class="form-text text-muted">numeric input is invalid
+                      </small>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Last name</label>
-                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="{{userData.lastName}}">
+                    <input formControlName="lastName" [(ngModel)]="lastNameData" [readonly]="editing? false:true"
+                           type="text" id="input-last-name"
+                           class="form-control form-control-alternative" placeholder="Last name">
+                    <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched) || (editCheck.submitted)">
+                      <small *ngIf="editProfileForm.hasError('required',['lastName'])" style="color : red !important;"
+                             class="form-text text-muted">this
+                        field is required
+                      </small>
+                      <small *ngIf="editProfileForm.hasError('pattern',['lastName'])" style="color : red !important;"
+                             class="form-text text-muted">numeric input is invalid
+                      </small>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -93,18 +127,32 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Phone number</label>
-                    <input type="text" id="input-phone-number" class="form-control form-control-alternative" placeholder="phone number" value="{{userData.phoneNumber}}">
+                    <input formControlName="phoneNumber" type="text" [(ngModel)]="phoneData" [readonly]="editing? false: true" type="text" id="input-phone-number"
+                           class="form-control form-control-alternative" placeholder="phone number"
+                           value="{{userData.phoneNumber}}">
+                    <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched) || (editCheck.submitted)">
+                      <small *ngIf="editProfileForm.hasError('required',['phoneNumber'])" style="color : red !important;"
+                             class="form-text text-muted">this
+                        field is required
+                      </small>
+                      <small *ngIf="editProfileForm.hasError('pattern',['phoneNumber'])" style="color : red !important;"
+                             class="form-text text-muted">Phone
+                        number is not valid yet
+                      </small>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Authority</label>
-                    <input type="text" id="input-authority" class="form-control form-control-alternative" placeholder="Authority" value="{{userData.authorities}}">
+                    <input [readonly]="true" type="text" id="input-authority"
+                           class="form-control form-control-alternative" placeholder="Authority"
+                           value="{{userData.authorities}}">
                   </div>
                 </div>
               </div>
-              <button class="btn btn-primary" type="button">Submit</button>
-              <button class="btn btn-danger" type="button">Cancel</button>
+              <button (click)="updateProfile()" [hidden]="editing ? false: true" class="btn btn-primary" type="button">Submit</button>
+              <button [hidden]="editing ? false: true" class="btn btn-danger" type="button" routerLink="/profile">Cancel</button>
             </div>
           </form>
         </div>
