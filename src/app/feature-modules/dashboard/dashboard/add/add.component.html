@@ -1,0 +1,110 @@
+<div class="modal-header pop-head font">
+  <h4 class="modal-title pull-left">Add New User</h4>
+  <button type="button" class="close pull-right pop-icon" aria-label="Close" (click)="bsModalRef.hide()">
+    <span class="pop-icon" aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body pop-body font">
+  <form [formGroup]="addUserForm" #regForm = "ngForm" (ngSubmit)="registerUser()">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div id="main">
+        <div>
+          <input formControlName="firstName" placeholder="first name" class="form-control pop-inp">
+          <div *ngFor="let validation of vMsg.firstName">
+            <div class="text-danger" *ngIf="firstName.hasError(validation.type) && (firstName.dirty || firstName.touched)">
+              <small>{{validation.message}}</small>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div>
+          <input formControlName="lastName" placeholder="last name" class="form-control pop-inp">
+          <div *ngFor="let validation of vMsg.lastName">
+            <div class="text-danger" *ngIf="lastName.hasError(validation.type) && (lastName.dirty || lastName.touched)">
+              <small>{{validation.message}}</small>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div>
+          <input formControlName="email" placeholder="Email" type="email" class="form-control pop-inp">
+          <div *ngFor="let validation of vMsg.email">
+            <div class="text-danger" *ngIf="email.hasError(validation.type) && (email.dirty || email.touched)">
+              <small>{{validation.message}}</small>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div>
+          <input formControlName="phoneNumber" placeholder="Phone Number" type="tel" class="form-control pop-inp">
+          <small>e.g. +251 9** ** ** **</small>
+          <div *ngFor="let validation of vMsg.phoneNumber">
+            <div class="text-danger" *ngIf="phoneNumber.hasError(validation.type) && (phoneNumber.dirty || phoneNumber.touched)">
+              <small>{{validation.message}}</small>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div>
+          <input formControlName="username" placeholder="User Name" class="form-control pop-inp">
+          <div *ngFor="let validation of vMsg.username">
+            <div class="text-danger" *ngIf="username.hasError(validation.type) && (username.dirty || username.touched)">
+              <small>{{validation.message}}</small>
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <div>
+          <label style="display: block">Authority</label>
+          <select formControlName="authorities" id="customSelect" class="custom-select d-block w-100" (ngModelChange)="onRoleChange($event)">
+            <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+          </select>
+        </div>
+        <br>
+        <div class="" *ngIf="showGrade === true">
+          <label>Grade</label>
+          <select class="custom-select d-block w-100" id="customSelect" formControlName="grade" (ngModelChange)="listSections($event)">
+            <option value="0">All</option>
+            <option *ngFor="let each of grades" [ngValue]="each">{{each}}</option>
+          </select>
+        </div>
+
+        <div class="" *ngIf="showGrade === true">
+          <label>Section</label>
+          <select class="custom-select d-block w-100" id="customSelect" formControlName="section">
+            <option value="0">All</option>
+            <option *ngFor="let each of sections" [ngValue]="each">{{each}}</option>
+          </select>
+        </div>
+        <br>
+        <div>
+          <input formControlName="password" [(ngModel)]="password2" #input minlength="8"  placeholder="Password" type="password" class="form-control pop-inp">
+          &nbsp;&nbsp;<i
+          class="fa fa-eye" *ngIf="changeIcon" (click)="showPassword(input)">
+        </i>
+          <i class="fa fa-eye-slash" *ngIf="!changeIcon" (click)="showPassword(input)"></i>
+          <password-strength-meter [password]="password2"></password-strength-meter>
+          <div *ngFor="let validation of vMsg.password">
+            <div class="text-danger" *ngIf="password.hasError(validation.type) && (password.dirty || password.touched)">
+              <small>{{validation.message}}</small>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <!-- <label>Confirm Password</label> -->
+          <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+          <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+            <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+            <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords don't match</div>
+          </div>
+        </div>
+        <br>
+      </div>
+      <hr>
+      <button type="submit" class="btn btn-outline-primary float-right">Register</button>
+      <br>
+    </div>
+  </form>
+</div>

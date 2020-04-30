@@ -1,0 +1,16 @@
+<div class="alert-box">
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm</h4>
+    <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- {{modalContent}} -->
+    <p>Do you want to confirm?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-outline-danger" (click)="onConfirm()">Yes</button>
+    <button type="button" class="btn btn-sm btn-outline-primary" (click)="onCancel()">No</button>
+  </div>
+</div>
